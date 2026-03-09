@@ -1,0 +1,246 @@
+/* Warm Burgundy - Sway Edition */
+/* Pill-shaped groups with colored modules */
+
+@import "style/catppuccin-themes/warm-burgundy.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    min-height: 0;
+    font-size: 97%;
+    font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: transparent;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty,
+window#waybar.empty #window {
+    background-color: transparent;
+    padding: 0px;
+    border: 0px;
+}
+
+tooltip {
+    background: @base;
+    color: @text;
+    border-radius: 10px;
+    border: 1px solid @blue;
+}
+
+/* --- Pill-shaped groups --- */
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: @base;
+    border: 1.5px solid @blue;
+    border-radius: 14px;
+    padding: 2px 6px;
+    margin: 3px 0;
+}
+
+/* --- Workspace buttons (circle dots) --- */
+
+#workspaces button {
+    color: @overlay1;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button:hover {
+    color: @peach;
+    background-color: @surface0;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.focused {
+    color: @mauve;
+    padding: 0 8px;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.persistent {
+    color: @surface1;
+}
+
+#workspaces button.urgent {
+    color: @red;
+}
+
+/* --- Module base padding --- */
+
+#backlight,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
+#disk,
+#idle_inhibitor,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#tray,
+#window,
+#custom-menu,
+#custom-power,
+#custom-swaync,
+#custom-separator {
+    padding: 4px 6px;
+}
+
+/* --- Separators (dots between groups) --- */
+
+#custom-separator {
+    color: @overlay0;
+    padding: 4px 2px;
+}
+
+/* --- Module colors --- */
+
+#clock {
+    color: @yellow;
+}
+
+#cpu {
+    color: @green;
+}
+
+#memory {
+    color: @sky;
+}
+
+#temperature {
+    color: @teal;
+}
+
+#temperature.critical {
+    background-color: @red;
+    color: @base;
+    border-radius: 6px;
+}
+
+#backlight {
+    color: @yellow;
+}
+
+#battery {
+    color: @green;
+}
+
+#battery.warning {
+    color: @peach;
+}
+
+@keyframes blink {
+    to {
+        color: @surface0;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: @base;
+    border-radius: 6px;
+    animation-name: blink;
+    animation-duration: 3s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#pulseaudio {
+    color: @sapphire;
+}
+
+#pulseaudio.bluetooth {
+    color: @pink;
+}
+
+#pulseaudio.muted {
+    color: @red;
+}
+
+#pulseaudio.microphone {
+    color: @flamingo;
+}
+
+#network {
+    color: @teal;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @overlay0;
+}
+
+#bluetooth {
+    color: @blue;
+}
+
+#idle_inhibitor {
+    color: @overlay1;
+}
+
+#idle_inhibitor.activated {
+    color: #7A1A1A;
+}
+
+#tray {
+    color: @lavender;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#tray menu {
+    background: @base;
+    color: @text;
+}
+
+#tray menu * {
+    min-height: 18px;
+}
+
+#tray menu separator {
+    min-height: 12px;
+}
+
+#window {
+    color: @mauve;
+}
+
+#custom-menu {
+    color: @rosewater;
+}
+
+#custom-power {
+    color: @red;
+}
+
+#custom-swaync {
+    color: @lavender;
+}

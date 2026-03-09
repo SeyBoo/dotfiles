@@ -1,0 +1,183 @@
+// Catppuccin Mocha waybar config for Sway
+// Includes JaKooLit module library, overrides for sway compatibility
+{
+    "include": [
+        "$HOME/.config/waybar/Modules",
+        "$HOME/.config/waybar/ModulesCustom",
+        "$HOME/.config/waybar/ModulesGroups"
+    ],
+
+    "layer": "top",
+    "position": "top",
+    "height": 33,
+    "margin-top": 4,
+    "margin-left": 6,
+    "margin-right": 6,
+
+    "modules-left": [
+        "custom/menu",
+        "sway/workspaces",
+        "sway/window",
+        "tray"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "custom/separator#dot",
+        "backlight",
+        "battery",
+        "custom/separator#dot",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "custom/separator#dot",
+        "network",
+        "bluetooth",
+        "custom/separator#dot",
+        "idle_inhibitor",
+        "custom/swaync"
+    ],
+
+    // --- Sway-specific modules ---
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": false,
+        "format": "{icon}",
+        "format-icons": {
+            "focused": "●",
+            "default": "○",
+            "urgent": "●"
+        },
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 30,
+        "tooltip": false,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": " $1",
+            "(.*) - fish": "> [$1]",
+            "(.*) - zsh": "> [$1]"
+        }
+    },
+
+    // --- Module overrides for sway (replace hyprctl commands) ---
+
+    "custom/menu": {
+        "format": "  ",
+        "on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+        "on-click-right": "",
+        "on-click-middle": "",
+        "tooltip": true,
+        "tooltip-format": "App Launcher"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} 󰂰 {volume}%",
+        "format-muted": "󰖁",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", "󰕾", ""]
+        },
+        "scroll-step": 5.0,
+        "on-click": "pamixer --toggle-mute",
+        "on-click-right": "pavucontrol -t 3",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "tooltip-format": "{icon} {desc} | {volume}%",
+        "smooth-scrolling-threshold": 1
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "on-click": "pamixer --default-source --toggle-mute",
+        "on-click-right": "pavucontrol -t 4",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "tooltip-format": "{source_desc} | {source_volume}%",
+        "scroll-step": 5
+    },
+
+    "backlight": {
+        "interval": 2,
+        "format": "{icon}",
+        "format-icons": [" ", " ", " ", "󰃝 ", "󰃞 ", "󰃟 ", "󰃠 "],
+        "tooltip-format": "Backlight {percent}%",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "smooth-scrolling-threshold": 1
+    },
+
+    "battery": {
+        "full-at": 100,
+        "design-capacity": false,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": "󱘖 {capacity}%",
+        "format-alt-click": "click",
+        "format-full": "{icon} Full",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-time": "{H}h {M}min",
+        "tooltip": true,
+        "tooltip-format": "{timeTo} {power}w"
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": "{used:0.1f}G 󰾆",
+        "format-alt": "{percentage}% 󰾆",
+        "format-alt-click": "click",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+        "on-click-right": ""
+    },
+
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰌘",
+        "format-disconnected": "󰌙",
+        "tooltip-format": "{ipaddr}  {bandwidthUpBits}  {bandwidthDownBits}",
+        "format-linked": "󰈁 {ifname} (No IP)",
+        "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname} 󰌘",
+        "tooltip-format-disconnected": "󰌙 Disconnected",
+        "max-length": 30,
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "on-click": "rofi-wifi",
+        "on-click-right": "nm-connection-editor"
+    },
+
+    "custom/power": {
+        "format": " ⏻ ",
+        "on-click": "swaynag -t warning -m 'Power Menu' -b 'Logout' 'swaymsg exit' -b 'Reboot' 'systemctl reboot' -b 'Shutdown' 'systemctl poweroff'",
+        "on-click-right": "",
+        "tooltip": true,
+        "tooltip-format": "Power Menu"
+    }
+}

@@ -1,0 +1,41 @@
+/*
+ * Japanese Garden palette
+ * Extracted from Concept-Japanese house.png
+ * Warm browns, foliage greens, shoji cream, stone gray
+ */
+
+/* Backgrounds — dark warm umber */
+@define-color base    #1e1b16;
+@define-color mantle  #181510;
+@define-color crust   #12100d;
+
+/* Text — warm cream tones */
+@define-color text     #d4ccb8;
+@define-color subtext0 #a89e8e;
+@define-color subtext1 #bdb3a0;
+
+/* Surfaces — warm brown layers */
+@define-color surface0 #2e2a23;
+@define-color surface1 #3d3730;
+@define-color surface2 #4d453c;
+
+/* Overlays — muted earth */
+@define-color overlay0 #6a6055;
+@define-color overlay1 #7d7368;
+@define-color overlay2 #908678;
+
+/* Accents — from the garden */
+@define-color blue      #7aaa80; /* sage green (pill borders) */
+@define-color lavender  #b8c4a0; /* pale green-cream */
+@define-color sapphire  #6a9a7a; /* deep garden green */
+@define-color sky       #a0c878; /* bright leaf green */
+@define-color teal      #80aa70; /* mid foliage */
+@define-color green     #8aaa55; /* vibrant foliage */
+@define-color yellow    #c8b070; /* shoji screen light */
+@define-color peach     #c49a65; /* warm wood */
+@define-color maroon    #b87a5a; /* terracotta */
+@define-color red       #b06a5a; /* muted terracotta */
+@define-color mauve     #a89070; /* warm stone */
+@define-color pink      #c4a880; /* light wood */
+@define-color flamingo  #b8a078; /* sandy stone */
+@define-color rosewater #d4c8a8; /* warm cream highlight */

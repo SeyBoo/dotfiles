@@ -1,0 +1,40 @@
+/*
+ * Warm Burgundy palette
+ * Light warm minimalism — burgundy is the only chromatic color
+ */
+
+/* Backgrounds — warm beige/cream */
+@define-color base    #F0E8DC;
+@define-color mantle  #F7F2EB;
+@define-color crust   #FAF8F5;
+
+/* Text — dark neutrals */
+@define-color text     #1A1A1A;
+@define-color subtext0 #4A4A4A;
+@define-color subtext1 #2A2A2A;
+
+/* Surfaces — warm light layers */
+@define-color surface0 #E8DFD0;
+@define-color surface1 #DDD4C6;
+@define-color surface2 #D9D0C4;
+
+/* Overlays — muted warm tones */
+@define-color overlay0 #8A8078;
+@define-color overlay1 #6A6058;
+@define-color overlay2 #4A4238;
+
+/* Accents — darkened for contrast on light bg */
+@define-color blue      #7A1A1A; /* deep burgundy (pill borders) */
+@define-color lavender  #3A3A3A; /* secondary text tone */
+@define-color sapphire  #6A2020; /* dark burgundy */
+@define-color sky       #3A5030; /* dark olive */
+@define-color teal      #3A5A48; /* dark sage */
+@define-color green     #3A5030; /* dark olive */
+@define-color yellow    #6A5A30; /* dark warm gold */
+@define-color peach     #7A3030; /* dark warm red */
+@define-color maroon    #A02020; /* strong red */
+@define-color red       #A02020; /* strong red */
+@define-color mauve     #7A1A1A; /* deep burgundy */
+@define-color pink      #6A2020; /* dark burgundy */
+@define-color flamingo  #5A5248; /* dark muted */
+@define-color rosewater #2A2A2A; /* charcoal */

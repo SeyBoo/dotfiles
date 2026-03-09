@@ -1,0 +1,178 @@
+# Sway config - Converted from Hyprland
+# Terminal: kitty
+# File manager: thunar
+
+set $mod Mod1
+set $term kitty
+set $files thunar
+
+# Export environment to systemd so portals (file picker, screenshots) work
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# Idle config (no dpms off — causes crashes on Asahi/Apple Silicon)
+# 5min: lock, 10min: dim screen (not to 0 — causes white screen on Asahi)
+exec swayidle -w \
+    timeout 300 'swaylock -f' \
+    timeout 600 'brightnessctl set 5%' \
+    resume 'brightnessctl set 50%' \
+    before-sleep 'swaylock -f'
+
+# Lock on lid close (suspend disabled — causes white screen on Asahi)
+bindswitch --reload --locked lid:on exec swaylock -f
+
+# Start network manager applet (exec, not exec_always — avoid duplicates on reload)
+exec nm-applet --indicator
+
+# Start waybar
+exec_always sh -c 'pgrep -x waybar && pkill -SIGUSR2 waybar || waybar &'
+
+# Output config (basic)
+output * bg ~/.config/hypr/wallpaper_effects/.wallpaper_current fill
+
+# Input config
+input * {
+    natural_scroll yes
+    tap enabled
+    click_method clickfinger
+}
+
+# Keyboard - French
+input "type:keyboard" {
+    xkb_layout fr
+}
+
+# Window gaps
+gaps inner 5
+gaps outer 5
+
+# Border
+default_border pixel 2
+default_floating_border pixel 2
+
+# Colors (Warm Burgundy — warm minimalism)
+#                       border  bg      text    indicator child_border
+client.focused          #7A1A1A #F0E8DC #1A1A1A #C43030   #7A1A1A
+client.focused_inactive #D9D0C4 #F7F2EB #4A4A4A #D9D0C4   #D9D0C4
+client.unfocused        #E8DFD0 #FAF8F5 #A09890 #E8DFD0   #E8DFD0
+client.urgent           #C43030 #C43030 #FFFFFF #C43030   #C43030
+
+# ---------------------
+# Keybinds
+# ---------------------
+
+# Terminal & File Manager
+bindsym $mod+Return exec $term
+bindsym $mod+F exec $files
+
+# Menu
+bindsym $mod+Space exec rofi -show drun
+bindsym $mod+D exec rofi -show drun
+
+# Close/kill
+bindsym $mod+W kill
+
+# Exit sway
+bindsym $mod+Shift+E exit
+
+# Lock screen
+bindsym $mod+Shift+L exec swaylock -f
+
+# Screenshot
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+Print exec grim - | wl-copy
+
+# Volume
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# Fallback by keycode (Apple keyboard)
+bindcode --locked 123 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindcode --locked 122 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# Media controls
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+# Fallback by keycode (Apple keyboard)
+bindcode --locked 172 exec playerctl play-pause
+bindcode --locked 171 exec playerctl next
+bindcode --locked 165 exec playerctl previous
+
+# Brightness
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+# Fallback by keycode (Apple keyboard)
+bindcode --locked 233 exec brightnessctl set +5%
+bindcode --locked 232 exec brightnessctl set 5%-
+
+# Move focus
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+
+# Move window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+
+# Workspaces - French AZERTY keyboard
+bindsym $mod+ampersand workspace 1
+bindsym $mod+eacute workspace 2
+bindsym $mod+quotedbl workspace 3
+bindsym $mod+apostrophe workspace 4
+bindsym $mod+parenleft workspace 5
+bindsym $mod+minus workspace 6
+bindsym $mod+egrave workspace 7
+bindsym $mod+underscore workspace 8
+bindsym $mod+ccedilla workspace 9
+bindsym $mod+agrave workspace 10
+
+# Move to workspace
+bindsym $mod+Shift+ampersand move container to workspace 1
+bindsym $mod+Shift+eacute move container to workspace 2
+bindsym $mod+Shift+quotedbl move container to workspace 3
+bindsym $mod+Shift+apostrophe move container to workspace 4
+bindsym $mod+Shift+parenleft move container to workspace 5
+bindsym $mod+Shift+minus move container to workspace 6
+bindsym $mod+Shift+egrave move container to workspace 7
+bindsym $mod+Shift+underscore move container to workspace 8
+bindsym $mod+Shift+ccedilla move container to workspace 9
+bindsym $mod+Shift+agrave move container to workspace 10
+
+# Autotiling (dwindle-like layout, alternates split direction automatically)
+exec_always sh -c 'pkill -f autotiling; sleep 0.3; ~/.local/bin/autotiling &'
+
+# Manual split (override autotiling if needed)
+bindsym $mod+B split v
+bindsym $mod+V split h
+
+# Fullscreen
+bindsym $mod+Shift+F fullscreen
+
+# Floating
+bindsym $mod+Shift+Space floating toggle
+
+# Ctrl+click → right-click (macOS style)
+bindsym --whole-window Control+button1 exec YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool click 0xC1
+
+# Floating modifier (hold mod + drag to move/resize)
+floating_modifier $mod normal
+
+# Resize mode
+bindsym $mod+R mode "resize"
+
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Right resize grow width 10px
+    bindsym Up resize shrink height 10px
+    bindsym Down resize grow height 10px
+    bindsym Escape mode "default"
+    bindsym $mod+R mode "default"
+}
+
+# Scratchpad
+bindsym $mod+S move scratchpad
+bindsym $mod+Shift+S scratchpad show

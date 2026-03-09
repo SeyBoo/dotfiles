@@ -42,7 +42,7 @@ alias lla='ls -la'
 alias lt='ls --tree'
 
 # opencode
-export PATH=/home/antoine/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"

@@ -1,7 +1,7 @@
-/* Warm Burgundy - Sway Edition */
+/* Everforest Dark - Sway Edition */
 /* Pill-shaped groups with colored modules */
 
-@import "style/catppuccin-themes/warm-burgundy.css";
+@import "/home/antoine/.config/waybar/style/catppuccin-themes/gruvbox-material-dark.css";
 
 * {
     font-family: "JetBrainsMono Nerd Font";
@@ -103,6 +103,7 @@ tooltip {
 #custom-menu,
 #custom-power,
 #custom-swaync,
+#custom-bluetooth,
 #custom-separator {
     padding: 4px 6px;
 }
@@ -192,7 +193,8 @@ tooltip {
     color: @overlay0;
 }
 
-#bluetooth {
+#bluetooth,
+#custom-bluetooth {
     color: @blue;
 }
 

@@ -1,0 +1,40 @@
+/*
+ * Gruvbox Material Dark palette
+ * Mapped to Catppuccin variable names for compatibility
+ */
+
+/* Backgrounds — warm dark brown */
+@define-color base    #1D2021;
+@define-color mantle  #141617;
+@define-color crust   #0F1011;
+
+/* Text — warm beige */
+@define-color text     #D4BE98;
+@define-color subtext0 #A89984;
+@define-color subtext1 #928374;
+
+/* Surfaces — dark warm layers */
+@define-color surface0 #282828;
+@define-color surface1 #32302F;
+@define-color surface2 #3C3836;
+
+/* Overlays — warm greys */
+@define-color overlay0 #504945;
+@define-color overlay1 #665C54;
+@define-color overlay2 #7C6F64;
+
+/* Accents — Gruvbox Material palette */
+@define-color blue      #7DAEA3;
+@define-color lavender  #D3869B;
+@define-color sapphire  #7DAEA3;
+@define-color sky       #89B482;
+@define-color teal      #89B482;
+@define-color green     #A9B665;
+@define-color yellow    #D8A657;
+@define-color peach     #E78A4E;
+@define-color maroon    #EA6962;
+@define-color red       #EA6962;
+@define-color mauve     #D3869B;
+@define-color pink      #D3869B;
+@define-color flamingo  #E78A4E;
+@define-color rosewater #D4BE98;

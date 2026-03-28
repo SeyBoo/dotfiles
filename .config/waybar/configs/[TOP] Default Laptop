@@ -24,18 +24,14 @@
         "clock"
     ],
     "modules-right": [
-        "cpu",
-        "memory",
-        "temperature",
+        "group/mobo_drawer",
         "custom/separator#dot",
-        "backlight",
-        "battery",
+        "group/laptop",
         "custom/separator#dot",
-        "pulseaudio",
-        "pulseaudio#microphone",
+        "group/audio",
         "custom/separator#dot",
         "network",
-        "bluetooth",
+        "custom/bluetooth",
         "custom/separator#dot",
         "idle_inhibitor",
         "custom/swaync"
@@ -169,8 +165,17 @@
         "tooltip-format-disconnected": "󰌙 Disconnected",
         "max-length": 30,
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "on-click": "rofi-wifi",
+        "on-click": "kitty --title nmtui nmtui",
         "on-click-right": "nm-connection-editor"
+    },
+
+    "custom/bluetooth": {
+        "format": "{}",
+        "interval": 5,
+        "return-type": "json",
+        "exec": "if bluetoothctl show | grep -q 'Powered: yes'; then count=$(bluetoothctl devices Connected | wc -l); if [ \"$count\" -gt 0 ]; then printf '{\"text\": \"󰂱 %s\", \"tooltip\": \"%s\", \"class\": \"connected\"}' \"$count\" \"$(bluetoothctl devices Connected | cut -d' ' -f3- | paste -sd', ')\"; else printf '{\"text\": \" \", \"tooltip\": \"No devices connected\", \"class\": \"on\"}'; fi; else printf '{\"text\": \"󰂳\", \"tooltip\": \"Bluetooth off\", \"class\": \"off\"}'; fi",
+        "on-click": "kitty --title bluetuith bluetuith",
+        "tooltip": true
     },
 
     "custom/power": {

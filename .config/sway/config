@@ -27,8 +27,10 @@ exec nm-applet --indicator
 # Start waybar
 exec_always sh -c 'pgrep -x waybar && pkill -SIGUSR2 waybar || waybar &'
 
-# Output config (basic)
+# Output config
 output * bg ~/.config/hypr/wallpaper_effects/.wallpaper_current fill
+output HDMI-A-1 scale 1.5
+output eDP-1 scale 2
 
 # Input config
 input * {
@@ -50,12 +52,12 @@ gaps outer 5
 default_border pixel 2
 default_floating_border pixel 2
 
-# Colors (Warm Burgundy — warm minimalism)
+# Colors (Everforest Dark)
 #                       border  bg      text    indicator child_border
-client.focused          #7A1A1A #F0E8DC #1A1A1A #C43030   #7A1A1A
-client.focused_inactive #D9D0C4 #F7F2EB #4A4A4A #D9D0C4   #D9D0C4
-client.unfocused        #E8DFD0 #FAF8F5 #A09890 #E8DFD0   #E8DFD0
-client.urgent           #C43030 #C43030 #FFFFFF #C43030   #C43030
+client.focused          #A7C080 #2D353B #D3C6AA #83C092   #A7C080
+client.focused_inactive #3D484D #2D353B #859289 #3D484D   #3D484D
+client.unfocused        #343F44 #2D353B #7A8478 #343F44   #343F44
+client.urgent           #E67E80 #E67E80 #2D353B #E67E80   #E67E80
 
 # ---------------------
 # Keybinds
@@ -81,6 +83,10 @@ bindsym $mod+Shift+L exec swaylock -f
 # Screenshot
 bindsym Print exec grim -g "$(slurp)" - | wl-copy
 bindsym $mod+Print exec grim - | wl-copy
+
+# Screen recording (toggle with keybind, saves to ~/Videos)
+bindsym $mod+Shift+R exec sh -c 'if pgrep -x wf-recorder; then pkill -INT wf-recorder && notify-send "Recording saved"; else mkdir -p ~/Videos && notify-send "Recording started" && wf-recorder -c libopenh264 -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4; fi'
+bindsym $mod+Shift+A exec sh -c 'if pgrep -x wf-recorder; then pkill -INT wf-recorder && notify-send "Recording saved"; else mkdir -p ~/Videos && wf-recorder -c libopenh264 -g "$(slurp)" -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4 & notify-send "Recording started"; fi'
 
 # Volume
 bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%

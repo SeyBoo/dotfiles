@@ -44,9 +44,35 @@ has() { command -v "$1" &>/dev/null; }
 # ── System packages ─────────────────────────────────────
 echo "── System packages ──"
 
-for pkg in git curl wget jq tree fzf ripgrep fd zoxide bat eza neovim; do
+for pkg in git curl wget jq tree fzf ripgrep fd zoxide bat eza neovim lazygit starship gh; do
     if has "$pkg"; then info "$pkg already installed"; else install_pkg "$pkg"; fi
 done
+
+# ── Docker ───────────────────────────────────────────────
+echo "── Docker ──"
+if has docker; then
+    info "docker already installed"
+else
+    curl -fsSL https://get.docker.com | sh
+    sudo usermod -aG docker "$USER" 2>/dev/null || true
+    info "docker installed (relogin for group)"
+fi
+
+if ! has docker-compose; then
+    install_pkg docker-compose-plugin 2>/dev/null || install_pkg docker-compose
+fi
+
+# ── Nerd Fonts ───────────────────────────────────────────
+echo "── Nerd Fonts ──"
+if fc-list 2>/dev/null | grep -qi "nerd"; then
+    info "nerd fonts already installed"
+else
+    FONT_DIR="$HOME/.local/share/fonts"
+    mkdir -p "$FONT_DIR"
+    curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz | tar -xJ -C "$FONT_DIR"
+    fc-cache -f 2>/dev/null || true
+    info "jetbrains mono nerd font installed"
+fi
 
 # ── Python ───────────────────────────────────────────────
 echo "── Python ──"
@@ -133,6 +159,13 @@ fi
 echo "── Symlinking dotfiles ──"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 bash "$SCRIPT_DIR/install.sh"
+
+# ── Git config ───────────────────────────────────────────
+echo "── Git config ──"
+if [ -f "$SCRIPT_DIR/.config/git/gitconfig" ]; then
+    ln -sfn "$SCRIPT_DIR/.config/git/gitconfig" "$HOME/.gitconfig"
+    info "gitconfig symlinked"
+fi
 
 echo ""
 echo "Done! Restart your terminal for all changes to take effect."

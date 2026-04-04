@@ -1,0 +1,45 @@
+[user]
+	email = antoinechevalier.work@protonmail.com
+	name = Antoine Chevalier
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[core]
+	editor = nvim
+	pager = delta
+
+[delta]
+	features = decorations
+	side-by-side = true
+	line-numbers = true
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --oneline --graph --decorate
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	amend = commit --amend
+	lol = log --oneline --all --graph
+	diffstaged = diff --staged
+	wip = commit -m 'wip'
+	fixup = commit --fixup
+	squash = rebase -i --autosquash
+	who = shortlog -sn --no-merges
+	undo = reset HEAD~1 --mixed
+	authors = shortlog -sn --no-merges
+
+[push]
+	autoSetupRemote = true
+
+[merge]
+	tool = nvim
+
+[mergetool "nvim"]
+	cmd = nvim -d "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'

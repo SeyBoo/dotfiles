@@ -29,3 +29,11 @@
 - Use smaller models for simple tasks when possible
 - Batch multiple questions into single requests
 - Avoid unnecessary tool calls
+
+## Project Management Context
+- Freelance project tickets are synced as markdown to `~/.chvlr/pm/`
+- `~/.chvlr/pm/OVERVIEW.md` — all projects summary
+- `~/.chvlr/pm/{KEY}/README.md` — project with all tickets
+- `~/.chvlr/pm/{KEY}/{KEY}-{N}.md` — individual ticket detail with AI context
+- When working on a freelance task, check the relevant ticket file for context and implementation plans
+- To enrich a ticket from CLI: `python3 ~/Coding\ Projects/chvlr-ops/tools/enrich.py plan PROJ-1`

@@ -1,18 +1,19 @@
 return {
   -- Theme
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "sainnhe/gruvbox-material",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("catppuccin-mocha")
+      vim.g.gruvbox_material_background = "medium"
+      vim.g.gruvbox_material_foreground = "material"
+      vim.cmd.colorscheme("gruvbox-material")
     end,
   },
 
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
     config = function()
       local telescope = require("telescope")
       telescope.setup({
@@ -37,26 +38,18 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "javascript", "typescript", "python", "go", "rust", "lua", "bash", "json", "yaml", "markdown", "html", "css" },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
+      require("nvim-treesitter").setup()
+      vim.treesitter.language.register("bash", "sh")
     end,
   },
 
-  -- LSP
+  -- Completion
   {
-    "neovim/nvim-lspconfig",
+    "hrsh7th/nvim-cmp",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/nvim-cmp",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
@@ -83,45 +76,44 @@ return {
           { name = "path" },
         }),
       })
+    end,
+  },
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
-
+  -- LSP
+  {
+    "williamboman/mason.nvim",
+    config = function()
       require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
       require("mason-lspconfig").setup({
         ensure_installed = { "ts_ls", "pyright", "gopls", "rust_analyzer", "lua_ls", "bashls", "jsonls", "yamlls", "html", "cssls" },
       })
 
-      local on_attach = function(_, bufnr)
-        local nmap = function(keys, func, desc)
-          if desc then desc = "LSP: " .. desc end
-          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-        end
-        nmap("gd", vim.lsp.buf.definition, "Go to definition")
-        nmap("gr", vim.lsp.buf.references, "References")
-        nmap("K", vim.lsp.buf.hover, "Hover")
-        nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
-        nmap("<leader>ca", vim.lsp.buf.code_action, "Code action")
-        nmap("<leader>fm", vim.lsp.buf.format, "Format")
-      end
-
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local servers = { "ts_ls", "pyright", "gopls", "lua_ls", "bashls", "jsonls", "yamlls", "html", "cssls" }
-      for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
-        })
+      for _, server in ipairs(servers) do
+        vim.lsp.config[server] = { capabilities = capabilities }
       end
-
-      lspconfig["rust_analyzer"].setup({
-        on_attach = on_attach,
+      vim.lsp.config["rust_analyzer"] = {
         capabilities = capabilities,
         settings = {
-          ["rust-analyzer"] = {
-            check = { command = "clippy" },
-          },
+          ["rust-analyzer"] = { check = { command = "clippy" } },
         },
-      })
+      }
+      vim.lsp.enable(servers)
+      vim.lsp.enable("rust_analyzer")
+
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Go to definition" })
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "LSP: References" })
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover" })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+      vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, { desc = "LSP: Format" })
     end,
   },
 
@@ -153,7 +145,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup({
-        options = { theme = "catppuccin" },
+        options = { theme = "gruvbox-material" },
       })
     end,
   },

@@ -1,0 +1,36 @@
+#!/bin/bash
+clear
+printf "\n"
+printf "  \033[1;33mTMUX CHEAT SHEET\033[0m\n"
+printf "  \033[2mPrefix = Ctrl-b (press, release, then key)\033[0m\n"
+printf "\n"
+printf "  \033[1;32mWINDOWS\033[0m\n"
+printf "    c         New window\n"
+printf "    n         Next window\n"
+printf "    p         Previous window\n"
+printf "    1-9       Go to window #\n"
+printf "    ,         Rename window\n"
+printf "    &         Kill window\n"
+printf "\n"
+printf "  \033[1;32mPANES\033[0m\n"
+printf '    "         Split horizontal\n'
+printf "    %%         Split vertical\n"
+printf "    arrow     Move between panes\n"
+printf "    z         Zoom/unzoom pane\n"
+printf "    x         Kill pane\n"
+printf "    \033[2m(drag border with mouse to resize)\033[0m\n"
+printf "\n"
+printf "  \033[1;32mSESSIONS\033[0m\n"
+printf "    d         Detach\n"
+printf "    s         List sessions\n"
+printf "\n"
+printf "  \033[1;32mOTHER\033[0m\n"
+printf "    [         Scroll mode (q to exit)\n"
+printf "    :         Command prompt\n"
+printf "    h         This cheat sheet\n"
+printf "\n"
+printf "  \033[2mPress q to close\033[0m"
+while true; do
+    read -rsn1 key
+    [ "$key" = "q" ] && exit 0
+done

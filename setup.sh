@@ -52,7 +52,7 @@ done
 
 # lazygit via COPR on Fedora (not in official repos)
 if [ "$OS" = "fedora" ] && ! has lazygit; then
-    dnf copr enable -y atim/lazygit 2>/dev/null
+    dnf copr enable -y atim/lazygit 2>/dev/null || true
     dnf install -y lazygit 2>/dev/null || true
     info "lazygit installed via COPR"
 fi

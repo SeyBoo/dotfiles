@@ -23,18 +23,20 @@ else
 fi
 
 install_pkg() {
+    local pkg="$1"
     case $OS in
         arch|manjaro|endeavouros)
-            pacman -Syu --noconfirm "$1" 2>/dev/null || true
+            pacman -Syu --noconfirm "$pkg" 2>/dev/null || true
             ;;
         fedora)
-            dnf install -y "$1" 2>/dev/null || true
+            case "$pkg" in fd) pkg="fd-find" ;; esac
+            dnf install -y "$pkg" 2>/dev/null || true
             ;;
         ubuntu|debian|pop|linuxmint)
-            apt-get install -y "$1" 2>/dev/null || true
+            apt-get install -y "$pkg" 2>/dev/null || true
             ;;
         *)
-            warn "Unknown OS ($OS), skipping $1"
+            warn "Unknown OS ($OS), skipping $pkg"
             ;;
     esac
 }

@@ -164,6 +164,33 @@ if has claude; then
     fi
 fi
 
+# ── oh-my-zsh ────────────────────────────────────────────
+echo "── oh-my-zsh ──"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    info "oh-my-zsh installed"
+else
+    info "oh-my-zsh already installed"
+fi
+
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+    info "zsh-autosuggestions installed"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+    info "zsh-syntax-highlighting installed"
+fi
+
+if [ ! -f "$ZSH_CUSTOM/themes/agnosterzak.zsh-theme" ]; then
+    curl -fsSL https://raw.githubusercontent.com/zakaziko99/agnosterzak-ohmyzsh-theme/master/agnosterzak.zsh-theme \
+        -o "$ZSH_CUSTOM/themes/agnosterzak.zsh-theme"
+    info "agnosterzak theme installed"
+fi
+
 # ── Symlink dotfiles ─────────────────────────────────────
 echo "── Symlinking dotfiles ──"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

@@ -221,8 +221,8 @@ fi
 
 # ── GNOME keybindings ────────────────────────────────────
 echo "── GNOME keybindings ──"
-if has gsettings && [ -f "$HOME/.gnome-keybindings.sh" ]; then
-    bash "$HOME/.gnome-keybindings.sh"
+if has gsettings && [ -f "$SCRIPT_DIR/gnome-keybindings.sh" ]; then
+    bash "$SCRIPT_DIR/gnome-keybindings.sh"
     info "GNOME keybindings applied"
 fi
 

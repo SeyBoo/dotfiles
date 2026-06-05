@@ -50,6 +50,13 @@ for pkg in git curl wget jq tree fzf ripgrep fd zoxide bat eza neovim lazygit st
     if has "$pkg"; then info "$pkg already installed"; else install_pkg "$pkg"; fi
 done
 
+# lazygit via COPR on Fedora (not in official repos)
+if [ "$OS" = "fedora" ] && ! has lazygit; then
+    dnf copr enable -y atim/lazygit 2>/dev/null
+    dnf install -y lazygit 2>/dev/null || true
+    info "lazygit installed via COPR"
+fi
+
 # ── Docker ───────────────────────────────────────────────
 echo "── Docker ──"
 if has docker; then

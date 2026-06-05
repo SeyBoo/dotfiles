@@ -110,6 +110,12 @@ Real-time usage statusline + MCP servers:
 
 Run `claude` and the statusline shows session/weekly usage % automatically.
 
+## Wallpapers
+
+| File | Description |
+|------|-------------|
+| `wallpapers/mx5_black.jpg` | Black Mazda MX-5 ND |
+
 ## Sway
 
 Tiling Wayland WM with:

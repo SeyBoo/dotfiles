@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ulauncher
+Comment=Application launcher
+Exec=ulauncher --hide-window
+Icon=ulauncher
+Terminal=false
+Type=Application
+Categories=Utility;
+X-GNOME-Autostart-enabled=true

@@ -203,5 +203,40 @@ if [ -f "$SCRIPT_DIR/.config/git/gitconfig" ]; then
     info "gitconfig symlinked"
 fi
 
+# ── Wallpaper ────────────────────────────────────────────
+echo "── Wallpaper ──"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -f "$SCRIPT_DIR/wallpapers/mx5_black.jpg" ]; then
+    mkdir -p "$HOME/Images"
+    cp "$SCRIPT_DIR/wallpapers/mx5_black.jpg" "$HOME/Images/mx5_black.jpg"
+    WALLPAPER_URI="file://$HOME/Images/mx5_black.jpg"
+    if has gsettings; then
+        gsettings set org.gnome.desktop.background picture-uri "$WALLPAPER_URI"
+        gsettings set org.gnome.desktop.background picture-uri-dark "$WALLPAPER_URI"
+        info "wallpaper set"
+    else
+        info "wallpaper copied (gsettings not available)"
+    fi
+fi
+
+# ── GNOME keybindings ────────────────────────────────────
+echo "── GNOME keybindings ──"
+if has gsettings && [ -f "$HOME/.gnome-keybindings.sh" ]; then
+    bash "$HOME/.gnome-keybindings.sh"
+    info "GNOME keybindings applied"
+fi
+
+# ── Claude Code settings ─────────────────────────────────
+echo "── Claude Code settings ──"
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+CLAUDE_SETTINGS_SRC="$SCRIPT_DIR/.config/claude/claude-user-settings.json"
+if [ -f "$CLAUDE_SETTINGS_SRC" ] && [ ! -f "$CLAUDE_SETTINGS" ]; then
+    mkdir -p "$HOME/.claude"
+    cp "$CLAUDE_SETTINGS_SRC" "$CLAUDE_SETTINGS"
+    info "Claude Code user settings installed"
+elif [ -f "$CLAUDE_SETTINGS" ]; then
+    info "Claude Code settings already exist (skipping)"
+fi
+
 echo ""
 echo "Done! Restart your terminal for all changes to take effect."

@@ -46,7 +46,7 @@ has() { command -v "$1" &>/dev/null; }
 # ── System packages ─────────────────────────────────────
 echo "── System packages ──"
 
-for pkg in git curl wget jq tree fzf ripgrep fd zoxide bat eza neovim lazygit starship gh; do
+for pkg in git curl wget jq tree fzf ripgrep fd zoxide bat eza neovim lazygit starship gh zsh lsd fastfetch; do
     if has "$pkg"; then info "$pkg already installed"; else install_pkg "$pkg"; fi
 done
 

@@ -24,3 +24,10 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+# opencode
+export PATH=/home/antoine/.opencode/bin:$PATH
+
+# go
+export PATH="$HOME/.local/go/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"

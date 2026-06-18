@@ -1,1 +1,41 @@
 image=$HOME/.config/hypr/wallpaper_effects/.wallpaper_current
+scaling=fill
+
+# Blur effect (swaylock supports this natively with --effect-blur if swaylock-effects)
+# Using plain swaylock: show wallpaper + Everforest color indicators
+
+# Ring/key indicator colors (Everforest Dark)
+ring-color=2D353B
+ring-ver-color=A7C080
+ring-wrong-color=E67E80
+ring-clear-color=83C092
+
+inside-color=2D353B99
+inside-ver-color=A7C08099
+inside-wrong-color=E6808099
+inside-clear-color=83C09299
+
+line-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-clear-color=00000000
+
+text-color=D3C6AA
+text-ver-color=D3C6AA
+text-wrong-color=E67E80
+text-clear-color=83C092
+
+separator-color=00000000
+
+# Layout
+indicator-radius=80
+indicator-thickness=8
+indicator-caps-lock
+
+# Clock
+clock
+timestr=%H:%M
+datestr=%A, %d %B
+
+font=JetBrainsMono Nerd Font
+font-size=24

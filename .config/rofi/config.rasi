@@ -1,23 +1,88 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Ja KooLit - Default 
+configuration {
+    modi:               "drun,window,run";
+    font:               "JetBrainsMono Nerd Font 11";
+    show-icons:         true;
+    display-drun:       " ";
+    display-window:     " ";
+    display-run:        " ";
+    drun-display-format: "{name}";
+    hover-select:       true;
+    me-select-entry:    "";
+    me-accept-entry:    "MousePrimary";
+}
 
-* All main themes or configs are located in ~/.config/rofi/themes/
-* If you want to edit the config, that is where you should edit NOT here 
+* {
+    bg:      #2D353B;
+    bg2:     #3D484D;
+    fg:      #D3C6AA;
+    accent:  #A7C080;
+}
 
-* To load a new theme, manually edit the file path below or choose desired theme via rofi theme selector (choose via app menu)
+window {
+    width:            40em;
+    border:           2px;
+    border-color:     @accent;
+    border-radius:    8px;
+    background-color: @bg;
+    padding:          0;
+}
 
-* Alternative way to Load (preferred) own cooked by Ja 
-* SUPER CTRL R - Choose style & SUPER CTRL SHIFT R 
+mainbox {
+    background-color: transparent;
+    children:         [ "inputbar", "listview" ];
+    padding:          10px;
+    spacing:          8px;
+}
 
-* TIPS 
-* If you have edited a config, rename it with a unique name. During update, the contents of 
-* ~/.config/rofi/themes/ will be replaced. */
+inputbar {
+    background-color: @bg2;
+    border-radius:    6px;
+    padding:          8px 12px;
+    children:         [ "prompt", "entry" ];
+}
 
-/* ---- Global Configuration Fonts ---- */
-@import "~/.config/rofi/0-shared-fonts.rasi"
+prompt {
+    background-color: transparent;
+    text-color:       @accent;
+    padding:          0 8px 0 0;
+}
 
-/* note: Main themes in ~/.config/rofi/themes */
-/* You can manually change here or you can use rofi theme selector SUPER SHIFT E */
+entry {
+    background-color: transparent;
+    text-color:       @fg;
+    placeholder:      "Search...";
+    placeholder-color: @bg2;
+}
 
+listview {
+    background-color: transparent;
+    lines:            8;
+    columns:          1;
+    scrollbar:        false;
+    spacing:          4px;
+}
 
-@theme "~/.config/rofi/themes/KooL_style-4.rasi"
+element {
+    background-color: transparent;
+    text-color:       @fg;
+    border-radius:    6px;
+    padding:          8px;
+    spacing:          8px;
+    cursor:           pointer;
+}
+
+element selected {
+    background-color: @bg2;
+    text-color:       @accent;
+}
+
+element-icon {
+    size:             1.5em;
+    background-color: transparent;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
